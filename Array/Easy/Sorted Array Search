@@ -1,0 +1,23 @@
+Given an array, arr[] sorted in ascending order and an integer k. Return true if k is present in the array, otherwise, false.
+
+Examples:
+Input: arr[] = [1, 2, 3, 4, 6], k = 6
+Output: true
+Exlpanation: Since, 6 is present in the array at index 4 (0-based indexing), output is true.
+
+
+bool searchInSorted(vector<int> arr, int k) {
+        int n=arr.size();
+        int s=0,e=n-1;
+        while(s<=e){
+            int mid=s+(e-s)/2;
+            if(arr[mid]==k)
+                return true;
+            else if(arr[mid]>k){
+                e=mid-1;
+            }
+            else
+                s=mid+1;
+        }
+        return false;
+    }
