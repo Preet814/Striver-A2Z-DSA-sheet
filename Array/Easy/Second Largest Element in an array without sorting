@@ -1,0 +1,31 @@
+Given an array of positive integers arr[], return the second largest element from the array. If the second largest element doesn't exist then return -1.
+Note: The second largest element should not be equal to the largest element.
+
+Examples:
+Input: arr[] = [12, 35, 1, 10, 34, 1]
+Output: 34
+Explanation: The largest element of the array is 35 and the second largest element is 34.
+
+Input: arr[] = [10, 5, 10]
+Output: 5
+Explanation: The largest element of the array is 10 and the second largest element is 5.
+
+class Solution {
+  public:
+    // Function returns the second
+    // largest elements
+    int getSecondLargest(vector<int> &arr) {
+        int n=arr.size();
+        int max_element_one=arr[0];
+        for(int i=1;i<n;i++){
+            if(max_element_one<arr[i])
+                max_element_one=arr[i];
+        }
+        int maxi=-1;
+        for(int i=0;i<n;i++){
+            if(arr[i]>maxi && arr[i]<max_element_one)
+                maxi=arr[i];
+        }
+        return maxi;
+    }
+};
