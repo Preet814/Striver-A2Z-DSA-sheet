@@ -1,0 +1,57 @@
+Given an array of integers arr[]. Find the Inversion Count in the array.
+Two elements arr[i] and arr[j] form an inversion if arr[i] > arr[j] and i < j.
+Inversion Count: For an array, inversion count indicates how far (or close) the array is from being sorted. If the array is already sorted then the inversion count is 0.
+If an array is sorted in the reverse order then the inversion count is the maximum. 
+
+Examples:
+Input: arr[] = [2, 4, 1, 3, 5]
+Output: 3
+Explanation: The sequence 2, 4, 1, 3, 5 has three inversions (2, 1), (4, 1), (4, 3).
+
+
+
+class Solution {
+  public:
+    // arr[]: Input Array
+    // N : Size of the Array arr[]
+    // Function to count inversions in the array.
+    long long merge(vector<int>& arr,long long s,long long mid,long long e){
+        long long cnt=0;
+        vector<long long> temp;
+        int i=s,j=mid+1;
+        while(i<=mid && j<=e){
+            if(arr[i]<=arr[j]){
+                temp.push_back(arr[i++]);
+            }
+            else{
+                temp.push_back(arr[j++]);
+                cnt=cnt+(mid-i+1);
+            }
+        }
+        while(i<=mid){
+            temp.push_back(arr[i++]);
+        }
+        while(j<=e){
+            temp.push_back(arr[j++]);
+        }
+        for(int i=s;i<=e;i++){
+            arr[i]=temp[i-s];
+        }
+        return cnt;
+    }
+    long long int mergeSort(vector<int>& arr,long long s,long long e){
+        long long cnt=0;
+        if(s>=e)
+            return 0;
+        int mid=s+(e-s)/2;
+        cnt+=mergeSort(arr,s,mid);
+        cnt+=mergeSort(arr,mid+1,e);
+        cnt+=merge(arr,s,mid,e);
+        return cnt;
+        
+    }
+    long long int inversionCount(vector<int>& arr) {
+        int n=arr.size();
+        return mergeSort(arr,0,n-1);
+    }
+};
